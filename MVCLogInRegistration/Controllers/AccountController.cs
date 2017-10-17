@@ -39,9 +39,12 @@ namespace MVCLogInRegistration.Controllers
                     db.customerInformation.Add(account);
                     db.SaveChanges();
                     ModelState.Clear();
+
+                     
+                    return RedirectToAction("Index");
                     ViewBag.Message = account.FirstName + " " + account.LastName + " registration was successful";
                 }
-                else ViewBag.message = "username or password is already in use, please use another,BITCH.";
+                else ViewBag.message = "username or password is already in use, please use another.";
             }
            
             return View();
@@ -58,7 +61,7 @@ namespace MVCLogInRegistration.Controllers
             if (username == null && email == null) return true;
             else return false;
 
-        }
+        }// end of validation//////////////////////////////////////////////////////////////////
 
         public ActionResult LogIn()
         {
@@ -75,6 +78,9 @@ namespace MVCLogInRegistration.Controllers
 
                     Session["UsedId"] = usr.UsedId.ToString();
                     Session["UserName"] = usr.UserName.ToString();
+                    Session["IsAdmin"] = usr.IsAdmin;
+
+
                     return RedirectToAction("LoggedIn");
 
                 }
@@ -89,7 +95,9 @@ namespace MVCLogInRegistration.Controllers
         {
             if (Session["UsedId"] != null)
             {
+                
                 return View();
+
 
             }
             else return RedirectToAction("LogIn");

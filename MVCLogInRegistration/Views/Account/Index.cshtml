@@ -4,10 +4,19 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (ViewBag.Message != null)
+    {
+        <div class="form-group">
+            <div class="col-md-10">
+                @ViewBag.Message
+        </div>
+     </div>
+
+
+    }
 </p>
 <table class="table">
     <tr>
@@ -53,12 +62,8 @@
         <td>
             @Html.DisplayFor(modelItem => item.CreditCardNumber)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ConfirmPassword)
-        </td>
+       
+       
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.UsedId }) |
             @Html.ActionLink("Details", "Details", new { id=item.UsedId }) |
@@ -68,3 +73,11 @@
 }
 
 </table>
+<p>
+    @Html.ActionLink("Register", "Register", "Account") 
+   
+ 
+</p>
+<p>
+@Html.ActionLink("LogIn", "LogIn", "Account") 
+    </p>

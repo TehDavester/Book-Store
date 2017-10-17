@@ -24,8 +24,15 @@ namespace MVCLogInRegistration.Models
 
         public int Stock { get; set; }
 
-        public string Category { get; set; }
+       public String Category { get; set; }
 
         
    }
+    public class Categories
+    {
+        public List<string> categories = new List<string>();
+
+
+
+    }
 }

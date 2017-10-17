@@ -156,6 +156,7 @@
     </Compile>
     <Compile Include="Models\Bookdb.cs" />
     <Compile Include="Models\Books.cs" />
+    <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\CustomersDbContext.cs" />
     <Compile Include="Models\UsserAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -206,6 +207,8 @@
     <Content Include="Views\Books\Details.cshtml" />
     <Content Include="Views\Books\Edit.cshtml" />
     <Content Include="Views\Books\Index.cshtml" />
+    <Content Include="Views\Category.cshtml" />
+    <Content Include="Views\Books\AddCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

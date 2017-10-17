@@ -25,6 +25,13 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Register", "Register", "Account")</li>
                     <li>@Html.ActionLink("LogIn", "LogIn", "Account")</li>
+                    @if (Session["UserName"] != null && (bool)Session["IsAdmin"] == true)
+                    {
+
+
+                        <li>@Html.ActionLink("Books list", "Index", "Books")</li>
+
+                    }
                 </ul>
             </div>
         </div>

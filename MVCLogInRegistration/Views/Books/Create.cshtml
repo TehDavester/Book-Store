@@ -1,15 +1,18 @@
 ﻿@model MVCLogInRegistration.Models.Books
 
+
+
 @{
     ViewBag.Title = "Create";
 }
-
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
+ 
+
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Books</h4>
         <hr />
@@ -65,9 +68,13 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
-            </div>
+                    <select name="cars">
+                        @foreach ( var h in ViewData["categories"] as List<string>)
+                        { <option value= @h>@h</option>}
+                       
+                    </select>
+                    <br><br>
+</div>
         </div>
 
         <div class="form-group">

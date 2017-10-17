@@ -13,13 +13,14 @@ namespace MVCLogInRegistration.Controllers
     public class BooksController : Controller
     {
         private Bookdb db = new Bookdb();
+        private Categories category = new Categories();
 
         // GET: Books
         public ActionResult Index()
         {
             return View(db.book_database.ToList());
         }
-
+        
         // GET: Books/Details/5
         public ActionResult Details(int? id)
         {
@@ -36,11 +37,30 @@ namespace MVCLogInRegistration.Controllers
         }
 
         // GET: Books/Create
+
+            [HttpGet]
+        public ActionResult AddCategory()
+        {
+
+            return View();
+
+        }
+        [HttpPost]
+        public ActionResult AddCategory(string cats)
+        {
+            var cat = (string)Request["Category"];
+            category.categories.Add(cats);
+           
+            return View();
+            
+        }
         public ActionResult Create()
         {
+            
+            ViewData["categories"] = category.categories;
             return View();
         }
-
+        //kk/////////////////////////////////////////////////////////
         public bool Isunique(Books book)
 
         { var isbn = db.book_database.SingleOrDefault(b => b.ISBN10 == book.ISBN10);
@@ -53,6 +73,7 @@ namespace MVCLogInRegistration.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,ISBN10,Title,Author,Publishdate,Price,Stock,Category")] Books books)
         {
+           
             if (ModelState.IsValid)
             {
                 if (Isunique(books))
