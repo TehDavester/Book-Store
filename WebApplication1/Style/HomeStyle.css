@@ -1,0 +1,9 @@
+﻿body {
+    background-image: url(../Picture/bookstore.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+}
+html {
+    height: 100%
+}
