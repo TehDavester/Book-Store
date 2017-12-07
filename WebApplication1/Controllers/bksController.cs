@@ -13,7 +13,7 @@ namespace WebApplication1.Controllers
     public class bksController : Controller
     {
         private Databaseforbooks db = new Databaseforbooks();
-
+        
         // GET: bks
         public ActionResult Index()
         {
@@ -145,7 +145,25 @@ namespace WebApplication1.Controllers
             }
             else return Content("You do not have access to this data");
         }
+        [HttpGet]
+        public ActionResult Bookcart()
+        {
+            List<int> booklist;
+            if (TempData["booklist"] == null)
+            {
+                booklist = new List<int>();
+            }
+            else
+            { booklist = TempData["booklist"] as List<int>; }
 
+            List<int> ids = booklist.Distinct().ToList();
+            List<bks> model = new List<bks>();
+            foreach (var item in ids)
+            {
+                model.Add(db.books_table.SingleOrDefault(u => u.Id == item));
+            }
+            return View(model);
+        }
         // POST: bks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -163,6 +181,22 @@ namespace WebApplication1.Controllers
             else return false;
         }
         
+        public ActionResult Addtocart(int? id)
+        {
+            List<int> booklist;
+            if (TempData["booklist"] == null)
+            {
+               booklist  = new List<int>();
+            }
+            else
+            { booklist = TempData["booklist"] as List<int>; }
+            booklist.Add(id.Value);
+            TempData["booklist"] = booklist;
+
+            string url = this.Request.UrlReferrer.AbsolutePath;
+
+            return Redirect(url);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -171,5 +205,6 @@ namespace WebApplication1.Controllers
             }
             base.Dispose(disposing);
         }
+        
     }
 }

@@ -37,7 +37,7 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
 
-        public ActionResult Register(UsserAccount account )
+        public ActionResult Register(UsserAccount account)
         {
 
 
@@ -65,8 +65,38 @@ namespace WebApplication1.Controllers
 
         }
         //end methods for registration
-        //begin methods for log in 
-     
+        //begin methods for log in
+        [HttpGet]
+        public ActionResult SetCC()
+        {
+
+            if (!(Session["UsedId"] == null))
+            {
+                int id = (int)Session["UsedId"];
+               UsserAccount usr= db.accounts_table.SingleOrDefault( u=> u.UsedId == id);
+                if (usr.cardId==null)
+                   return View();
+            }
+            return Content("not logged on or credit card information already set");
+        }
+        [HttpPost]
+        public ActionResult SetCC(CreditCard card)
+            {
+            if (ModelState.IsValid)
+            {
+                db.card_table.Add(card);
+                db.SaveChanges();
+                var carid = db.card_table.SingleOrDefault(u => u.CCNum == card.CCNum).Id;
+                int id = (int)Session["UsedId"];
+                UsserAccount user = db.accounts_table.SingleOrDefault(u => u.UsedId == id);
+                user.cardId = carid;
+                db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Customer_index", "bks");
+            }
+             return View();
+            }
+            
 
 
         [HttpPost]
@@ -77,7 +107,7 @@ namespace WebApplication1.Controllers
             if (usr != null)
             {
 
-                Session["UsedId"] = usr.UsedId.ToString();
+                Session["UsedId"] = usr.UsedId;
                 Session["UserName"] = usr.UserName.ToString();
                 Session["IsAdmin"] = usr.IsAdmin;
 

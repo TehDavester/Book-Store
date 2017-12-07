@@ -179,8 +179,21 @@
     <Compile Include="Migrations\201710230659160_UsserAccountWithPhoneNUmber.Designer.cs">
       <DependentUpon>201710230659160_UsserAccountWithPhoneNUmber.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712061350038_herpderpplswork.cs" />
+    <Compile Include="Migrations\201712061350038_herpderpplswork.Designer.cs">
+      <DependentUpon>201712061350038_herpderpplswork.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712061445499_fuckingvs.cs" />
+    <Compile Include="Migrations\201712061445499_fuckingvs.Designer.cs">
+      <DependentUpon>201712061445499_fuckingvs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712061458397_validations.cs" />
+    <Compile Include="Migrations\201712061458397_validations.Designer.cs">
+      <DependentUpon>201712061458397_validations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\bks.cs" />
+    <Compile Include="Models\CreditCard.cs" />
     <Compile Include="Models\ctgs.cs" />
     <Compile Include="Models\Databaseforbooks.cs" />
     <Compile Include="Models\UsserAccount.cs" />
@@ -241,6 +254,8 @@
     <Content Include="Views\Account\LoggedIn.cshtml" />
     <Content Include="Views\bks\Customer_index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\SetCC.cshtml" />
+    <Content Include="Views\bks\BookCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -277,6 +292,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710230659160_UsserAccountWithPhoneNUmber.resx">
       <DependentUpon>201710230659160_UsserAccountWithPhoneNUmber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712061350038_herpderpplswork.resx">
+      <DependentUpon>201712061350038_herpderpplswork.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712061445499_fuckingvs.resx">
+      <DependentUpon>201712061445499_fuckingvs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712061458397_validations.resx">
+      <DependentUpon>201712061458397_validations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

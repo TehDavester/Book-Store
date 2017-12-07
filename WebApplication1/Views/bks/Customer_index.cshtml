@@ -76,7 +76,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Publisher)
             </td>
- 
+            <td>
+               @Html.ActionLink("Add To Card", "Addtocart", new { id = item.Id } )
+            </td>
         </tr>
     }
 </table>

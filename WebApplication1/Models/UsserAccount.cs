@@ -35,8 +35,8 @@ namespace WebApplication1.Models
         [Required(ErrorMessage = "Please enter your address")]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "Please enter your Credit Card Number")]
-        public double CreditCardNumber { get; set; }
+        public CreditCard card { get; set; }
+        public int? cardId { get; set; }
 
 
         [Required(ErrorMessage = "Please enter your Passwordress")]

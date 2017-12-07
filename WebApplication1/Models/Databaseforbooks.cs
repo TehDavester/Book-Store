@@ -10,6 +10,7 @@ namespace WebApplication1.Models
         public DbSet<bks> books_table { get; set; }
         public DbSet<ctgs> categories_table  { get; set; } 
         public DbSet<UsserAccount> accounts_table { get; set; }
+        public DbSet<CreditCard> card_table { get; set; }
 
 
     }
