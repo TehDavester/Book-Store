@@ -25,7 +25,7 @@
             @Html.DisplayNameFor(model => model.Address)
         </th>
         <th>
-            @Html.Label("Credit Card Number")
+            @Html.DisplayNameFor(model => model.card)
         </th>
         <th>
             @Html.Label("Phone Number")
@@ -54,7 +54,7 @@
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreditCardNumber)
+                @Html.DisplayFor(modelItem => item.card)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PhoneNumber)

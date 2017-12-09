@@ -44,6 +44,7 @@
                 </ul>
 
                     <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Cart","BookCart","Bks")</li>
                         @if (Session["UserName"] == null)
                         {
                             <li>@Html.ActionLink("Register", "Register", "Account")</li>

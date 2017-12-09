@@ -11,10 +11,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.Label("Category Name")
-
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ISBN10)
         </th>
         <th>
@@ -35,16 +31,15 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Publisher)
-
+        </th>
+        <th>
+            @Html.Label("Quantity")
         </th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryName)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ISBN10)
             </td>
@@ -67,9 +62,14 @@
                 @Html.DisplayFor(modelItem => item.Publisher)
             </td>
             <td>
+                    <div class="col-md-10">
+                        <input type="number" name="quantity" value="1"> 
+                    </div>
             </td>
         </tr>
     }
 
 </table>
+<input type="submit" value="checkout"/>
+      
 }

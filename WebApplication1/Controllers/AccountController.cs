@@ -67,7 +67,7 @@ namespace WebApplication1.Controllers
         //end methods for registration
         //begin methods for log in
         [HttpGet]
-        public ActionResult SetCC()
+        public ActionResult SetCC(string url)
         {
 
             if (!(Session["UsedId"] == null))
@@ -80,7 +80,7 @@ namespace WebApplication1.Controllers
             return Content("not logged on or credit card information already set");
         }
         [HttpPost]
-        public ActionResult SetCC(CreditCard card)
+        public ActionResult SetCC(CreditCard card, string url)
             {
             if (ModelState.IsValid)
             {
@@ -92,15 +92,18 @@ namespace WebApplication1.Controllers
                 user.cardId = carid;
                 db.Entry(user).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Customer_index", "bks");
+                if (url == null)
+                    return RedirectToAction("Customer_index", "bks");
+                else return Redirect(url);
             }
+          
              return View();
             }
             
 
 
         [HttpPost]
-        public ActionResult LogIn( UsserAccount user)
+        public ActionResult LogIn( UsserAccount user,string url)
         { //check if password and username are in db 
             var usr = db.accounts_table.SingleOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
            
@@ -111,9 +114,9 @@ namespace WebApplication1.Controllers
                 Session["UserName"] = usr.UserName.ToString();
                 Session["IsAdmin"] = usr.IsAdmin;
 
-
-                return RedirectToAction("LoggedIn");
-
+                if (url == null)
+                    return RedirectToAction("LoggedIn");
+                else Redirect(url);
             }
             else ModelState.AddModelError("", "User name or password wrong ");
             return View();
@@ -123,7 +126,7 @@ namespace WebApplication1.Controllers
          
         }// view for successfull login 
         [HttpGet]
-        public ActionResult LogIn()
+        public ActionResult LogIn(string url)
         {
             if (TempData["Confirmation"] != null)
                 ViewBag.Message = TempData["Confirmation"].ToString();

@@ -256,6 +256,7 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\SetCC.cshtml" />
     <Content Include="Views\bks\BookCart.cshtml" />
+    <Content Include="Views\bks\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

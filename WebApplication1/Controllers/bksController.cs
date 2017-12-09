@@ -157,12 +157,54 @@ namespace WebApplication1.Controllers
             { booklist = TempData["booklist"] as List<int>; }
 
             List<int> ids = booklist.Distinct().ToList();
-            List<bks> model = new List<bks>();
-            foreach (var item in ids)
+            var books_table = from r in db.books_table
+                              where ids.Contains(r.Id)
+                              select r;
+            TempData["booklist"] = ids;
+            return View(books_table.ToList());
+        }
+        [HttpPost]
+        public ActionResult Bookcart(List<int> quantity)
+        {
+            if (Session["UsedId"] == null)
+                return RedirectToAction("LogIn", "Account", new { url = Request.Url.AbsoluteUri });
+            int accountid = (int)Session["UsedId"];
+            if (db.accounts_table.SingleOrDefault(u => u.UsedId == accountid).cardId == null)
+                return RedirectToAction("SetCC", "Account", new { url = Request.Url.AbsoluteUri });
+            if (TempData["booklist"] == null)
+                return RedirectToAction("empty cart");
+            List<int> booklist = TempData["booklist"] as List<int>;
+            float price = 0;
+            for (int i = 0; i < booklist.Count; i++)
             {
-                model.Add(db.books_table.SingleOrDefault(u => u.Id == item));
+                int bookid = booklist[i];
+                bks book = db.books_table.SingleOrDefault(u => u.Id == bookid);
+                if (book.Stock < quantity[i])
+                    return Content("not enough stock for book" + book.Title);
+                price += book.Price * quantity[i];
             }
-            return View(model);
+
+            return RedirectToAction("Checkout", new { booklist = booklist, quantity = quantity, price = price });
+        }
+        [HttpGet]
+        public ActionResult Checkout(List<int> booklist,List<int> quantity,float price)
+        {
+            ViewBag.price = price;
+            return View();
+        }            
+
+        [HttpPost]
+        public ActionResult Checkout(List<int> booklist, List<int> quantity, float price,string yes)
+        {
+            for (int i = 0; i < booklist.Count; i++)
+            {
+                int bookid = booklist[i];
+                bks book = db.books_table.SingleOrDefault(u => u.Id == bookid);
+                book.Stock -= quantity[i];
+                db.Entry(book).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("ClearCart");
         }
         // POST: bks/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -180,7 +222,11 @@ namespace WebApplication1.Controllers
                 return true;
             else return false;
         }
-        
+        public ActionResult ClearCart()
+        {
+            TempData["booklist"] = null;
+            return RedirectToAction("Customer_index");
+        }
         public ActionResult Addtocart(int? id)
         {
             List<int> booklist;

@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Checkout";
+}
+
+<h2>Checkout</h2>
+
+<p>your total is</p>
+<br/>
+@ViewBag.price
+<p>Are you sure you want to buy this</p>
+@using (Html.BeginForm())
+{
+    <input type="submit" value="Yes" class="btn btn-default" />
+}
+<div>
+@Html.ActionLink("No", "ClearCart", routeValues: null, htmlAttributes: new { @class = "btn btn-default", style = "white-space: normal" })</div>
+<br/>
