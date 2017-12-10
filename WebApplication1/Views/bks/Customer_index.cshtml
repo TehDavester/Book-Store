@@ -16,7 +16,10 @@
     </div>
 }
 </p>
-
+@if (Session["confirmation"] != null)
+{
+    <h2>@Session["confirmation"].ToString()</h2>
+}
 <table class="table">
     <tr>
         <th>

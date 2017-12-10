@@ -117,13 +117,15 @@ namespace WebApplication1.Controllers
         }
         // GET: bks: bks/Customer_index
 
+
         
+      
         public ActionResult Customer_index(string CategoryId)
         {
             
             
             var books_table = from r in db.books_table
-                              where r.Category.CategoryName == CategoryId || CategoryId == null ||CategoryId == ""
+                              where( r.Category.CategoryName == CategoryId || CategoryId == null ||CategoryId == "") && r.Stock>0// and this faggot as well if things go bad 
                               select r;
             ViewBag.CategoryId = new SelectList(db.categories_table, "categoryName", "CategoryName");
             return View("Customer_index",books_table.ToList());
@@ -180,10 +182,10 @@ namespace WebApplication1.Controllers
                 int bookid = booklist[i];
                 bks book = db.books_table.SingleOrDefault(u => u.Id == bookid);
                 if (book.Stock < quantity[i])
-                    return Content("not enough stock for book" + book.Title);
+                    return Content("not enough stock for book  " + book.Title);
                 price += book.Price * quantity[i];
             }
-
+            TempData["listquantities"] = quantity;/////if things fuck up take out this 
             return RedirectToAction("Checkout", new { booklist = booklist, quantity = quantity, price = price });
         }
         [HttpGet]
@@ -196,14 +198,20 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Checkout(List<int> booklist, List<int> quantity, float price,string yes)
         {
+            booklist = TempData["booklist"]as List<int>;/// same here 
+            quantity = TempData["listquantities"] as List<int>;// if things fuck up revome these two 
+
             for (int i = 0; i < booklist.Count; i++)
             {
                 int bookid = booklist[i];
+               
                 bks book = db.books_table.SingleOrDefault(u => u.Id == bookid);
-                book.Stock -= quantity[i];
+               
+                book.Stock =book.Stock- quantity[i];
                 db.Entry(book).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-            }
+           }
+            Session["confirmation"] = "Your purchase has been completed";
             return RedirectToAction("ClearCart");
         }
         // POST: bks/Delete/5
